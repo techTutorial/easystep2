@@ -1,0 +1,40 @@
+<div class='panel panel-default'>
+    <div class='panel-heading'>
+    	<span class='lead'>List of Products</span>
+    </div>
+    <div class='container'>
+        <table class='table table-hover'>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>Price</th>
+                    <th>Status</th>
+                    <th>Action |
+                    	<a href='#/es.add.product'>
+                    		<button type="button" class="btn btn-info">Add New</button>
+                    	</a>
+                    </th>
+                </tr>
+            </thead>
+            <tbody data-ng-controller='ProductCtrl as productCtrl'>
+                <tr data-ng-repeat='product in products'>
+                    <td><span data-ng-bind='product.productId'></span></td>
+                    <td><span data-ng-bind='product.productName'></span></td>
+                    <td><span data-ng-bind='product.productPrice'></span></td>
+                    <td><span>{{product.productAvailability ? 'IN_STOCK' : 'SOLD_OUT'}}</span></td>
+                    <td>
+                    	<span>
+                    		<a data-ng-href='#/product/{{product.productId}}'>
+                    			<button type='button' class='btn btn-success'>Edit</button>
+                    		</a>
+                    	</span>
+                    	<span data-ng-controller='ProductDeleteCtrl as prodDelCtrl'>
+                    		<button type='button' data-ng-click='removeProductById(product.productId)' class='btn btn-danger'>Remove</button>
+                    	</span>  
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

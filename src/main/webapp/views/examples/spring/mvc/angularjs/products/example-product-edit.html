@@ -1,0 +1,57 @@
+<div class='panel panel-default'>
+    <div class='panel panel-heading'>
+    	<span class='lead'>{{sectionTitle}}</span>
+    </div>
+    <div class='container' data-ng-submit='saveNewProductDetails(productAddEditForm.$valid)'>
+        <form data-ng-submit='saveExistingProductDetails(productAddEditForm.$valid)' name='productAddEditForm' class='form-horizontal' novalidate>
+            <input type='hidden' data-ng-model='editProduct.productId' />
+            <div class='row'>
+                <div class='form-group col-md-12'>
+                    <label class='col-md-2 control-lable' for='pNameId'>Name</label>
+                    <div class='col-md-7'>
+                        <input type='text' data-ng-model='editProduct.productName' name='pName' id='pNameId' class='productName form-control input-sm' placeholder='Enter name' required data-ng-minlength='3'/>
+                        <div class='has-error' data-ng-show='productAddEditForm.$dirty'>
+                            <span data-ng-show='productAddEditForm.pName.$error.required'>This is a required field</span><br>
+                            <span data-ng-show='productAddEditForm.pName.$error.minlength'>Minimum length required is 3</span><br>
+                            <span data-ng-show='productAddEditForm.pName.$invalid'>This field is invalid </span><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class='row'>
+                <div class='form-group col-md-12'>
+                    <label class='col-md-2 control-lable' for='pEmailId'>Price</label>
+                    <div class='col-md-7'>
+                        <input type='number' data-ng-model='editProduct.productPrice' name='productPrice' id='pEmailId' class='email form-control input-sm' placeholder='Enter price' required/>
+                        <div class='has-error' data-ng-show='productAddEditForm.$dirty'>
+                            <span data-ng-show='productAddEditForm.productPrice.$error.required'>This is a required field</span><br>
+                            <span data-ng-show='productAddEditForm.productPrice.$invalid'>This field is invalid </span><br>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class='row'>
+                <div class='form-actions container' align='left'>
+                	<a data-ng-href="#/es.display.product">
+                		<input type='button' value="Back" class='btn btn-primary btn-sm'>
+                	</a>
+                	
+                	<!-- it is not required to use ng-controller='ProductAddCtrl' for adding new product -->
+                	<span data-ng-if='!editProduct.productId'>
+                		<input type='submit' data-ng-click='saveNewProductDetails(productAddEditForm.$valid)' value="{{!editProduct.productId ? 'Add' : 'Update'}}" class='btn btn-primary btn-sm' data-ng-disabled='productAddEditForm.$invalid'>
+                	</span>
+                	<span data-ng-if='editProduct.productId' data-ng-controller='ProductEditCtrl as prodEditCtrl'>
+                    	<input type='submit' data-ng-click='saveExistingProductDetails(productAddEditForm.$valid)' value="{{!editProduct.productId ? 'Add' : 'Update'}}" class='btn btn-primary btn-sm' data-ng-disabled='productAddEditForm.$invalid'>
+                    </span>
+                    
+                    <!-- Reset is not working -->
+                    <span data-ng-controller='ProductResetCtrl'>
+                    	<button type='button' data-ng-click='reset()' class='btn btn-warning btn-sm' data-ng-disabled='productAddEditForm.$pristine'>Reset</button>
+                    </span>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
